@@ -139,7 +139,7 @@
     "@types/twig": "^1.12.5",
     {{/if_eq}}
     {{#if_eq stylesheet "less"}}
-    "@types/less-middleware": "^2.0.31",
+    "@types/less-middleware": "^2.0.31"
     {{/if_eq}}
     {{#if_eq stylesheet "stylus"}}
     "@types/stylus": "^0.48.34"

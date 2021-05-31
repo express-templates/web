@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application } from "express";
 import createError from "http-errors";
 import chalk from "chalk";
 import path from "path";
@@ -7,7 +7,7 @@ import debug from "debug";
 import adaro from "adaro";
 {{/if_eq}}
 {{#if_eq stylesheet "less"}}
-import lessMiddleware from "less-middleware");
+import lessMiddleware from "less-middleware";
 {{/if_eq}}
 {{#if_eq stylesheet "stylus"}}
 import stylus from "stylus";
@@ -38,8 +38,8 @@ import db from "./db";
 
 {{#if_xor axios extraction "extraction"}}
 alias.addAlias("@axios", `${__dirname}/axios.js`);
-{{/if_xor}}
 
+{{/if_xor}}
 {{#if_eq database "mongoose"}}
 db.connect().then(() => {
   console.log(chalk.blue("MongoDB connected!"));
