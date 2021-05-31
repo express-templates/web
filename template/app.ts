@@ -23,7 +23,7 @@ import morgan from "morgan";
 {{/morgan}}
 {{#helmet}}
 import helmet from "helmet";
-{{/helmet}
+{{/helmet}}
 {{#if_xor cookieparser extraction "extraction"}}
 import cookieParser from "cookie-parser";
 {{/if_xor}}
