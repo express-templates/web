@@ -18,15 +18,9 @@ import compass from "node-compass";
 {{#if_in stylesheet "sass" "scss"}}
 import sassMiddleware from "node-sass-middleware";
 {{/if_in}}
-{{#morgan}}
 import morgan from "morgan";
-{{/morgan}}
-{{#helmet}}
 import helmet from "helmet";
-{{/helmet}}
-{{#if_xor cookieparser extraction "extraction"}}
 import cookieParser from "cookie-parser";
-{{/if_xor}}
 import express_import_routes from "express-import-routes";
 {{#if_xor axios extraction "extraction"}}
 import alias from "module-alias";
@@ -85,15 +79,9 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "vash");
 {{/if_eq}}
 
-{{#morgan}}
 app.use(morgan("dev"));
-{{/morgan}}
-{{#helmet}}
 app.use(helmet());
-{{/helmet}}
-{{#if_xor cookieparser extraction "extraction"}}
 app.use(cookieParser());
-{{/if_xor}}
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 {{#if_eq stylesheet "less"}}

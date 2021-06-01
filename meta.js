@@ -65,6 +65,7 @@ module.exports = {
     ts: {
       type: "confirm",
       message: "Use TypeScript?",
+      default: false,
     },
     view: {
       type: "list",
@@ -144,14 +145,6 @@ module.exports = {
         },
       ],
     },
-    morgan: {
-      type: "confirm",
-      message: "Install morgan?",
-    },
-    helmet: {
-      type: "confirm",
-      message: "Install helmet?",
-    },
     extraction: {
       type: "list",
       message: "Pick an mode API",
@@ -167,11 +160,6 @@ module.exports = {
           short: "extraction",
         },
       ],
-    },
-    cookieparser: {
-      when: "extraction !== 'extraction'",
-      type: "confirm",
-      message: "Install cookie-parser?",
     },
     axios: {
       when: "extraction !== 'extraction'",
