@@ -92,7 +92,6 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "mocha": "^8.2.2",
-    "nodemon": "^2.0.7",
     {{#ts}}
     {{#if_xor cookieparser extraction "extraction"}}
     "@types/cookie-parser": "^1.4.2",
@@ -139,11 +138,12 @@
     "@types/twig": "^1.12.5",
     {{/if_eq}}
     {{#if_eq stylesheet "less"}}
-    "@types/less-middleware": "^2.0.31"
+    "@types/less-middleware": "^2.0.31",
     {{/if_eq}}
     {{#if_eq stylesheet "stylus"}}
-    "@types/stylus": "^0.48.34"
+    "@types/stylus": "^0.48.34",
     {{/if_eq}}
     {{/ts}}
+    "nodemon": "^2.0.7"
   }
 }
