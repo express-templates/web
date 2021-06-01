@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import createError from "http-errors";
 import chalk from "chalk";
 import path from "path";
@@ -117,12 +117,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express_import_routes());
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction): void => {
   next(createError(404));
 });
 
 // error handler
-app.use((err, req, res) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
   console.error(chalk.red(err.message));
   res.end("Error");
 });
