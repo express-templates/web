@@ -35,8 +35,6 @@ require("dotenv").config();
 
 const app = express();
 
-const debug = require("debug")("web:server");
-
 {{#if_eq view "jade"}}
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
@@ -113,7 +111,7 @@ app.listen(PORT, (err) => {
   if (err) {
     console.error(err);
   } else {
-    debug(`App it running on port ${PORT}`);
+    console.log(`App it running on port ${PORT}`);
   }
 });
 

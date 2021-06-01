@@ -2,7 +2,6 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import createError from "http-errors";
 import chalk from "chalk";
 import path from "path";
-import debug from "debug";
 {{#if_eq view "hjs"}}
 import adaro from "adaro";
 {{/if_eq}}
@@ -42,8 +41,6 @@ db.connect().then(() => {
 dotenv.config();
 
 const app: Application = express();
-
-const debuger = debug("web:server");
 
 {{#if_eq view "jade"}}
 app.set("views", path.join(__dirname, "views"));
@@ -121,7 +118,7 @@ app.listen(PORT, (err?: any): void => {
   if (err) {
     console.error(err);
   } else {
-    debuger(`⚡️App it running on port ${PORT}`);
+    console.log(`⚡️App it running on port ${PORT}`);
   }
 });
 
