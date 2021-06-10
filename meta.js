@@ -279,9 +279,9 @@ module.exports = {
     "tsconfig.json": "ts",
     "**/*.js": "ts === false",
     "**/*.ts": "ts",
-    typings: "ts",
-    models: 'database === "mongoose"',
-    schema: 'database === "mongoose"',
+    "typings/*": "ts",
+    "models/*": 'database === "mongoose"',
+    "schema/*": 'database === "mongoose"',
   },
   complete: function (data, { chalk }) {
     const green = chalk.green;
