@@ -72,7 +72,7 @@ module.exports = {
     ts: {
       type: "confirm",
       message: "Use TypeScript?",
-      default: false,
+      default: true,
     },
     view: {
       type: "list",
