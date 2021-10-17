@@ -1,39 +1,46 @@
-const express = require("express");
-const createError = require("http-errors");
-const chalk = require("chalk");
-const path = require("path");
+import express, { Application, Request, Response, NextFunction } from "express";
+import createError from "http-errors";
+import chalk from "chalk";
+import path from "path";
 {{#if_eq view "hjs"}}
-const adaro = require("adaro");
+import adaro from "adaro";
 {{/if_eq}}
 {{#if_eq stylesheet "less"}}
-const lessMiddleware = require("less-middleware");
+import lessMiddleware from "less-middleware";
 {{/if_eq}}
 {{#if_eq stylesheet "stylus"}}
-const stylus = require("stylus");
+import stylus from "stylus";
 {{/if_eq}}
 {{#if_eq stylesheet "compass"}}
-const compass = require("node-compass");
+import compass from "node-compass";
 {{/if_eq}}
 {{#if_in stylesheet "sass" "scss"}}
-const sassMiddleware = require("node-sass-middleware");
+import sassMiddleware from "node-sass-middleware";
 {{/if_in}}
-const morgan = require("morgan");
-const helmet = require("helmet");
-const express_import_routes = require("express-import-routes");
+import morgan from "morgan";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import express_import_routes from "express-import-routes";
 {{#if_xor axios extraction "extraction"}}
-const alias = require("module-alias");
+import alias from "module-alias";
+{{/if_xor}}
+import dotenv from "dotenv";
+{{#if_eq database "mongoose"}}
+import db from "./db";
+{{/if_eq}}
+
+{{#if_xor axios extraction "extraction"}}
 alias.addAlias("@axios", `${__dirname}/axios.js`);
+
 {{/if_xor}}
 {{#if_eq database "mongoose"}}
-const db = require("./db");
-
 db.connect().then(() => {
   console.log(chalk.blue("MongoDB connected!"));
 });
 {{/if_eq}}
-require("dotenv").config();
+dotenv.config();
 
-const app = express();
+const app: Application = express();
 
 {{#if_eq view "jade"}}
 app.set("views", path.join(__dirname, "views"));
@@ -71,48 +78,48 @@ app.set("view engine", "vash");
 
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(require("cookie-parser")());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 {{#if_eq stylesheet "less"}}
-app.use(lessMiddleware(path.join(__dirname, "public")));
+app.use(lessMiddleware(path.join(__dirname, "..", "public")));
 {{/if_eq}}
 {{#if_eq stylesheet "stylus"}}
-app.use(stylus.middleware(path.join(__dirname, "public")));
+app.use(stylus.middleware(path.join(__dirname, "..", "public")));
 {{/if_eq}}
 {{#if_eq stylesheet "compass"}}
 app.use(compass({ mode: "expanded" }));
 {{/if_eq}}
 {{#if_in stylesheet "sass" "scss"}}
 app.use(sassMiddleware({
-  src: path.join(__dirname, "public"),
-  dest: path.join(__dirname, "public"),
+  src: path.join(__dirname, "..", "public"),
+  dest: path.join(__dirname, "..", "public"),
   indentedSyntax: {{#if_eq stylesheet "sass"}}true{{/if_eq}}{{#if_eq stylesheet "scss"}}false{{/if_eq}}, // true = .sass and false = .scss
   sourceMap: true
 }));
 {{/if_in}}
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "..", "public")));
 app.use(express_import_routes());
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction): void => {
   next(createError(404));
 });
 
 // error handler
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
   console.error(chalk.red(err.message));
   res.end("Error");
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT: number = +(process.env.PORT || 8080);
 
-app.listen(PORT, (err) => {
+app.listen(PORT, (err?: any): void => {
   if (err) {
     console.error(err);
   } else {
-    console.log(`App it running on port ${PORT}`);
+    console.log(`⚡️App it running on port ${PORT}`);
   }
 });
 
-module.exports = app;
+export default app;
