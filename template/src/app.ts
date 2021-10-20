@@ -20,7 +20,7 @@ import sassMiddleware from "node-sass-middleware";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
-import express_import_routes from "express-import-routes";
+import express_import_routes, { setSrcRoot } from "express-import-routes";
 {{#if_xor axios extraction "extraction"}}
 import alias from "module-alias";
 {{/if_xor}}
@@ -39,6 +39,7 @@ db.connect().then(() => {
 });
 {{/if_eq}}
 dotenv.config();
+setSrcRoot(__dirname);
 
 const app: Application = express();
 
