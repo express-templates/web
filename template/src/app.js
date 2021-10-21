@@ -20,10 +20,10 @@ const sassMiddleware = require("node-sass-middleware");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const express_import_routes = require("express-import-routes");
-{{#if_xor axios extraction "extraction"}}
+
 const alias = require("module-alias");
-alias.addAlias("@axios", `${__dirname}/axios.js`);
-{{/if_xor}}
+alias.addAlias("src", __dirname);
+
 {{#if_eq database "mongoose"}}
 const db = require("./db");
 

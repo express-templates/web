@@ -1,7 +1,14 @@
-import express, { Application, Request, Response, NextFunction } from "express";
-import createError from "http-errors";
-import chalk from "chalk";
 import path from "path";
+
+import chalk from "chalk";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import express, { Application, Request, Response, NextFunction } from "express";
+import express_import_routes, { setSrcRoot } from "express-import-routes";
+import helmet from "helmet";
+import createError from "http-errors";
+import alias from "module-alias";
+import morgan from "morgan";
 {{#if_eq view "hjs"}}
 import adaro from "adaro";
 {{/if_eq}}
@@ -17,22 +24,12 @@ import compass from "node-compass";
 {{#if_in stylesheet "sass" "scss"}}
 import sassMiddleware from "node-sass-middleware";
 {{/if_in}}
-import morgan from "morgan";
-import helmet from "helmet";
-import cookieParser from "cookie-parser";
-import express_import_routes, { setSrcRoot } from "express-import-routes";
-{{#if_xor axios extraction "extraction"}}
-import alias from "module-alias";
-{{/if_xor}}
-import dotenv from "dotenv";
 {{#if_eq database "mongoose"}}
 import db from "./db";
 {{/if_eq}}
 
-{{#if_xor axios extraction "extraction"}}
-alias.addAlias("@axios", `${__dirname}/axios.js`);
+alias.addAlias("src", __dirname);
 
-{{/if_xor}}
 {{#if_eq database "mongoose"}}
 db.connect().then(() => {
   console.log(chalk.blue("MongoDB connected!"));
