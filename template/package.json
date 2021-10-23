@@ -136,6 +136,6 @@
     "@types/stylus": "^0.48.34",
     {{/if_eq}}
     {{/ts}}
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.14"
   }
 }

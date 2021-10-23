@@ -105,6 +105,7 @@ app.use((req: Request, res: Response, next: NextFunction): void => {
 });
 
 // error handler
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
   console.error(chalk.red(err.message));
   res.end("Error");
@@ -112,6 +113,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
 
 const PORT: number = +(process.env.PORT || 8080);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 app.listen(PORT, (err?: any): void => {
   if (err) {
     console.error(err);
