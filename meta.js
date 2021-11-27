@@ -52,7 +52,7 @@ module.exports = {
       return templateVersion;
     },
   },
-
+  
   prompts: {
     name: {
       type: "string",
@@ -74,6 +74,7 @@ module.exports = {
       message: "Use TypeScript?",
       default: true,
     },
+    
     view: {
       type: "list",
       message: "Pick an view engine",
@@ -152,44 +153,32 @@ module.exports = {
         },
       ],
     },
-    extraction: {
-      type: "list",
-      message: "Pick an mode API",
+    packages: {
+      type: "checkbox",
+      message: "Select packages install:",
       choices: [
         {
-          name: "Normal API",
-          value: "normal",
-          short: "normal",
+          name: "Cors",
+          value: "cors",
         },
         {
-          name: "Data extraction API",
-          value: "extraction",
-          short: "extraction",
+          name: "Axios",
+          value: "axios",
+        },
+        {
+          name: "JSDom",
+          value: "jsdom",
         },
       ],
     },
-    axios: {
-      when: "extraction !== 'extraction'",
-      type: "confirm",
-      message: "Install axios?",
-      default: false,
-    },
-    jsdom: {
-      when: "extraction !== 'extraction'",
-      type: "confirm",
-      message: "Install jsdom?",
-      default: false,
-    },
-    useDatabase: {
-      type: "confirm",
-      message: "Use database?",
-      default: false,
-    },
     database: {
-      when: "useDatabase",
       type: "list",
       message: "Pick an database preset",
       choices: [
+        {
+          name: "None",
+          value: null,
+        },
         {
           name: "MySQL",
           value: "mysql",
@@ -203,47 +192,47 @@ module.exports = {
       ],
     },
     DB_MG_URL: {
-      when: "useDatabase && database == 'mongoose'",
+      when: "database == 'mongoose'",
       type: "string",
       required: true,
       message: "Mongo Database connect?",
       default: "mongodb://localhost:27017",
     },
     DB_MG_NAME: {
-      when: "useDatabase && database == 'mongoose'",
+      when: "database == 'mongoose'",
       type: "string",
       required: true,
       message: "Mongo Database name?",
     },
     DB_DATABASE: {
-      when: "useDatabase && database == 'mysql'",
+      when: "database == 'mysql'",
       type: "string",
       required: true,
       message: "Database name?",
     },
     DB_HOST: {
-      when: "useDatabase && database == 'mysql'",
+      when: "database == 'mysql'",
       type: "string",
       required: true,
       message: "Host database name?",
       default: "localhost",
     },
     DB_USER: {
-      when: "useDatabase && database == 'mysql'",
+      when: "database == 'mysql'",
       type: "string",
       required: true,
       message: "Username database name?",
       default: "root",
     },
     DB_PASSWORD: {
-      when: "useDatabase && database == 'mysql'",
+      when: "database == 'mysql'",
       type: "password",
       required: false,
       message: "Password database?",
       default: "",
     },
     DB_TIMEOUT: {
-      when: "useDatabase && database == 'mysql'",
+      when: "database == 'mysql'",
       type: "number",
       required: true,
       message: "Timeout query database?",
@@ -274,9 +263,6 @@ module.exports = {
   },
   filters: {
     "src/boot/database.*": "database !== null",
-    "tsconfig.json": "ts",
-    "**/*.js": "ts === false",
-    "**/*.ts": "ts",
     "tsconfig.json": "ts",
     "**/*.js": "ts === false",
     "**/*.ts": "ts",
