@@ -273,14 +273,13 @@ module.exports = {
     },
   },
   filters: {
-    "src/db.*": "useDatabase",
-    "src/axios.*": "extraction === 'extraction' || axios",
-    "src/utils/index.*": "extraction === 'extraction' || jsdom",
+    "src/boot/database.*": "database !== null",
     "tsconfig.json": "ts",
     "**/*.js": "ts === false",
     "**/*.ts": "ts",
-    "src/models/*": 'useDatabase && database === "mongoose"',
-    "src/schema/*": 'useDatabase && database === "mongoose"',
+    "tsconfig.json": "ts",
+    "**/*.js": "ts === false",
+    "**/*.ts": "ts",
   },
   complete: function (data, { chalk }) {
     const green = chalk.green;
